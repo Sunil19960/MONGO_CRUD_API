@@ -1,6 +1,7 @@
 package models
 
-type Employee struct {
-	ID   int    `json:"id" binding:"required"`
-	Name string `json:"name" binding:"required"`
+type Book struct {
+	ID     string `json:"id"`
+	Title  string `json:"title" binding:"required"`
+	Author string `json:"author" binding:"required"`
 }
