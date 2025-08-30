@@ -3,6 +3,7 @@ package routes
 import (
 	"context"
 	"crud/handlers"
+	"crud/shared"
 	"crud/utils"
 
 	"github.com/gin-gonic/gin"
@@ -16,9 +17,12 @@ func setContext() gin.HandlerFunc {
 }
 
 func InitializeRoutes(r *gin.Engine) {
-	r.GET(utils.Settings.GetStatus, setContext(), handlers.GetStatus)
-	r.GET(utils.Settings.GetBookRoute, setContext(), handlers.GetBook)
-	r.POST(utils.Settings.AddBookRoute, setContext(), handlers.AddBook)
-	r.POST(utils.Settings.UpdateBookRoute, setContext(), handlers.UpdateBook)
-	r.DELETE(utils.Settings.RemoveBookRoute, setContext(), handlers.RemoveBook)
+	r.POST(utils.Settings.LoginRoute, handlers.LoginHandler)
+
+	r.GET(utils.Settings.GetStatus, shared.VerifyToken(), setContext(), handlers.GetStatus)
+	r.GET(utils.Settings.GetBookRoute, shared.VerifyToken(), setContext(), handlers.GetBook)
+	r.POST(utils.Settings.AddBookRoute, shared.VerifyToken(), setContext(), handlers.AddBook)
+	r.POST(utils.Settings.UpdateBookRoute, shared.VerifyToken(), setContext(), handlers.UpdateBook)
+	r.DELETE(utils.Settings.RemoveBookRoute, shared.VerifyToken(), setContext(), handlers.RemoveBook)
+
 }

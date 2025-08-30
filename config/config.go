@@ -15,6 +15,7 @@ type Settings struct {
 	UpdateBookRoute string `json:"update_book"`
 	RemoveBookRoute string `json:"delete_book"`
 	Mongo_URI       string `json:"Mongo_URI"`
+	LoginRoute      string `json:"login"`
 }
 
 func LoadSettings() Settings {
@@ -32,6 +33,7 @@ func LoadSettings() Settings {
 		AddBookRoute:    getEnv("ADD_BOOK_ROUTE"),
 		UpdateBookRoute: getEnv("UPDATE_BOOK_ROUTE"),
 		RemoveBookRoute: getEnv("REMOVE_BOOK_ROUTE"),
+		LoginRoute:      getEnv("LOGIN_ROUTE"),
 	}
 }
 
