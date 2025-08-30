@@ -54,8 +54,9 @@ func CreateJWTToken(userID string) (string, error) {
 func VerifyToken() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		tokenString := c.GetHeader("Authorization")
+		tokenString = tokenString[len("Bearer "):]
 		if tokenString == "" {
-			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
 				"status":  "failed",
 				"message": "Authorization Header missing",
 			})
@@ -66,7 +67,7 @@ func VerifyToken() gin.HandlerFunc {
 		})
 
 		if err != nil || !token.Valid {
-			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
 				"status":  "failed",
 				"message": "Invalid Authorization Header. Please Login again",
 			})
